@@ -6,38 +6,20 @@ import (
 	"strings"
 )
 
-func GetRandomProxy() string {
-	proxyFile, err := os.ReadFile("./data/proxies.txt")
+func GetRandomFromFile(path string) string {
+	file, err := os.ReadFile(path)
 	if err != nil {
 		return ""
 	}
 
-	proxyLines := strings.Split(string(proxyFile), "\n")
-	if len(proxyLines) == 0 {
+	lines := strings.Split(string(file), "\n")
+	if len(lines) == 0 {
 		return ""
 	}
 
-	randomIndex := rand.IntN(len(proxyLines))
-	if randomIndex < 0 || randomIndex >= len(proxyLines) {
+	randomIndex := rand.IntN(len(lines))
+	if randomIndex < 0 || randomIndex >= len(lines) {
 		return ""
 	}
-	return strings.TrimSpace(proxyLines[randomIndex])
-}
-
-func GetRandomToken() string {
-	tokenFile, err := os.ReadFile("./data/accs.txt")
-	if err != nil {
-		return ""
-	}
-
-	tokenLines := strings.Split(string(tokenFile), "\n")
-	if len(tokenLines) == 0 {
-		return ""
-	}
-
-	randomIndex := rand.IntN(len(tokenLines))
-	if randomIndex < 0 || randomIndex >= len(tokenLines) {
-		return ""
-	}
-	return strings.TrimSpace(tokenLines[randomIndex])
+	return strings.TrimSpace(lines[randomIndex])
 }
