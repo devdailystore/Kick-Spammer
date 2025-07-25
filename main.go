@@ -11,8 +11,8 @@ func worker(channelId int, message string, workerID int, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	for {
-		proxy := utils.GetRandomProxy()
-		token := utils.GetRandomToken()
+		proxy := utils.GetRandomFromFile("./data/proxies.txt")
+		token := utils.GetRandomFromFile("./data/accs.txt")
 
 		if proxy == "" || token == "" {
 			fmt.Printf("Worker %d: No proxies or tokens available, retrying...\n", workerID)
